@@ -17,7 +17,7 @@ cmake --version
 
 ### 2.2 编译步骤
 
-进入`TrajOpt`目录并运行 build.sh 脚本：
+进入`TrajOpt`目录并运行 `build.sh` 脚本：
 
 
 ## 3. 运行代码
