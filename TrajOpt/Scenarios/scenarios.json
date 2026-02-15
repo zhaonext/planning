@@ -1,0 +1,124 @@
+{
+  "scenarios": [
+    {
+      "name": "tailgating",
+      "obstacles": [
+        {
+          "id": 1,
+          "x": 50,
+          "y": 2.8,
+          "v": 15,
+          "phi": 0,
+          "t": 0.0,
+          "psi_dot": 0.0,
+          "a": 0.0,
+          "type": "DYNAMIC_VEHICLE",
+          "intent": "LF"
+        },
+        {
+          "id": 2,
+          "x": 50,
+          "y": 0.0,
+          "v": 20.5,
+          "phi": 0.0,
+          "t": 0.0,
+          "psi_dot": 0.0,
+          "a": 0.0,
+          "type": "DYNAMIC_VEHICLE",
+          "intent": "LF"
+        },
+        {
+          "id": 3,
+          "x": 30,
+          "y": -2.8,
+          "v": 20,
+          "phi": 0.0,
+          "t": 0.0,
+          "psi_dot": 0.0,
+          "a": 0.0,
+          "type": "DYNAMIC_VEHICLE",
+          "intent": "LF"
+        }
+      ],
+      "speed_limits": {
+        "desired": 45.0,
+        "minimum": 0.0,
+        "maximum": 100.0
+      },
+      "acceleration_limits": {
+        "minimum": -5,
+        "maximum": 2
+      },
+      "front_wheel_turning_angle": {
+        "minimum": -0.61,
+        "maximum": 0.61
+      },
+      "lateral_offset": {
+        "minimum": -6,
+        "maximum": 6
+      },
+      "weights": {
+        "acceleration": 3.0,
+        "positive_velocity": 10.0,
+        "negative_velocity": 0.01,
+        "phidot": 0.01,
+        "s_offset": 0.00,
+        "n_offset": 0.0001,
+        "distance_obstacle": 0.5
+      }
+    },
+    {
+      "name": "turn_left_param",
+      "sample_obstacles": {
+        "number_of_obstacle_samples": 0,
+        "random_seed": 0,
+        "start_section": 0.1,
+        "end_section": 0.2
+      },
+      "road": {
+        "lane_width": 3.75,
+        "lane_speed_limit": 50
+      },
+      "pedestrian_envelope_ellipse": {
+        "ellipse_param_a": 1.5,
+        "ellipse_param_b": 1.5
+      },
+      "speed_limits": {
+        "desired": 50.0,
+        "minimum": 0.0,
+        "maximum": 100.0
+      },
+      "acceleration_limits": {
+        "minimum": -5,
+        "maximum": 2
+      },
+      "front_wheel_turning_angle": {
+        "minimum": -0.61,
+        "maximum": 0.61
+      },
+      "lateral_offset": {
+        "minimum": -1.875,
+        "maximum": 1.875
+      },
+      "weights": {
+        "acceleration": 3.0,
+        "positive_velocity": 10.0,
+        "negative_velocity": 0.1,
+        "phidot": 0.005,
+        "s_offset": 0.0,
+        "n_offset": 0.5,
+        "distance_obstacle": 3.0
+      },
+      "init_state": {
+        "s": 0.0,
+        "n": 0.0,
+        "alpha": 0.0,
+        "x": 800.0,
+        "y": 0.0,
+        "v": 10.0,
+        "phi": 0.0
+      }
+    }
+  ]
+}
+

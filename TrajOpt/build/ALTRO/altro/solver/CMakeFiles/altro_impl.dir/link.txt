@@ -1,0 +1,2 @@
+/usr/bin/ar qc libaltro_impl.a CMakeFiles/altro_impl.dir/solver.cpp.o CMakeFiles/altro_impl.dir/shifted_vector.cpp.o CMakeFiles/altro_impl.dir/knotpoint_data.cpp.o CMakeFiles/altro_impl.dir/solver_options.cpp.o CMakeFiles/altro_impl.dir/solver_stats.cpp.o CMakeFiles/altro_impl.dir/exceptions.cpp.o CMakeFiles/altro_impl.dir/cones.cpp.o
+/usr/bin/ranlib libaltro_impl.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcommon.a CMakeFiles/common.dir/knotpoint.cpp.o CMakeFiles/common.dir/trajectory.cpp.o CMakeFiles/common.dir/solver_options.cpp.o CMakeFiles/common.dir/solver_stats.cpp.o CMakeFiles/common.dir/log_entry.cpp.o CMakeFiles/common.dir/solver_logger.cpp.o CMakeFiles/common.dir/timer.cpp.o CMakeFiles/common.dir/profile_entry.cpp.o CMakeFiles/common.dir/functionbase.cpp.o CMakeFiles/common.dir/threadpool_mock.cpp.o CMakeFiles/common.dir/threadpool_impl.cpp.o CMakeFiles/common.dir/exceptions.cpp.o
+/usr/bin/ranlib libcommon.a

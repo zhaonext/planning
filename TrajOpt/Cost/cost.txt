@@ -1,0 +1,227 @@
+
+CostFunction
+In[1]:= (*Define position error functions*)
+PositionError[xego_,yego_,xobs_,yobs_]:={xobs-xego,yobs-yego}
+
+(*Define rotation matrix based on obstacle heading angle*)
+rotationMatrixObsTheta[phiobs_]:={{Cos[phiobs],-Sin[phiobs]},{Sin[phiobs],Cos[phiobs]}}
+(*Compute error vector in obstacle's coordinate system*)
+ErrorVectorInObsCoords[xego_,yego_,phiego_,xobs_,yobs_,phiobs_]:=rotationMatrixObsTheta[phiobs].PositionError[xego,yego,xobs,yobs]
+errVector:=ErrorVectorInObsCoords[xego,yego,phiego,xobs,yobs,phiobs]
+
+(*Define distance function using ellipsoid*)
+distanceFunction[asquare_,bsquare_]:=With[{p={{1/asquare,0},{0,1/bsquare}}},Transpose[errVector].p.errVector]
+(*distanceFunction[asquare_,bsquare_]:=Sqrt[(Transpose[errVector].errVector)]*)
+distanceFunction[asquare,bsquare]
+distanceFunction[asquare,bsquare]//CForm
+Out[6]= ((-yego+yobs) Cos[phiobs]+(-xego+xobs) Sin[phiobs])^2/bsquare+((-xego+xobs) Cos[phiobs]-(-yego+yobs) Sin[phiobs])^2/asquare
+Out[7]//CForm=
+Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((-xego + xobs)*Cos(phiobs) - (-yego + yobs)*Sin(phiobs),2)/asquare
+WITHIN_THRESHOLD
+In[8]:= (*cost[asquare_,bsquare_,safetydis_]:= -1/(2*safetydis^3)*distanceFunction[asquare,bsquare]^4+distanceFunction[asquare,bsquare]^3*1/safetydis^2*)
+cost[asquare_,bsquare_,safetydis_]:= 1/distanceFunction[asquare,bsquare]
+CostFunction[xego_,yego_,phiego_,xobs_,yobs_,phiobs_,asquare_,bsquare_,safetydis_]:=cost[asquare,bsquare,safetydis]*cost[asquare,bsquare,safetydis]
+In[10]:= cost[asquare,bsquare,safetydis]
+Out[10]= 1/(((-yego+yobs) Cos[phiobs]+(-xego+xobs) Sin[phiobs])^2/bsquare+((-xego+xobs) Cos[phiobs]-(-yego+yobs) Sin[phiobs])^2/asquare)
+In[11]:= CostFunction[xego,yego,phiego,xobs,yobs,phiobs,asquare,bsquare,safetydis]
+Out[11]= 1/(((-yego+yobs) Cos[phiobs]+(-xego+xobs) Sin[phiobs])^2/bsquare+((-xego+xobs) Cos[phiobs]-(-yego+yobs) Sin[phiobs])^2/asquare)^2
+In[12]:= CostFunction[xego,yego,phiego,xobs,yobs,phiobs,asquare,bsquare,safetydis]// Simplify//CForm
+Out[12]//CForm=
+Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,-2)
+BEYOND_THRESHOLD
+In[13]:= (**cost1[asquare_,bsquare_,safetydis_]:= distanceFunction[asquare,bsquare]-safetydis/2*)
+cost1[asquare_,bsquare_,safetydis_]:= 1/distanceFunction[asquare,bsquare]
+CostFunction1[xego_,yego_,phiego_,xobs_,yobs_,phiobs_,asquare_,bsquare_,safetydis_]:=cost1[asquare,bsquare,safetydis]*cost1[asquare,bsquare,safetydis]
+In[15]:= cost1[asquare,bsquare,safetydis]
+Out[15]= 1/(((-yego+yobs) Cos[phiobs]+(-xego+xobs) Sin[phiobs])^2/bsquare+((-xego+xobs) Cos[phiobs]-(-yego+yobs) Sin[phiobs])^2/asquare)
+In[16]:= CostFunction1[xego,yego,phiego,xobs,yobs,phiobs,asquare,bsquare,safetydis]
+Out[16]= 1/(((-yego+yobs) Cos[phiobs]+(-xego+xobs) Sin[phiobs])^2/bsquare+((-xego+xobs) Cos[phiobs]-(-yego+yobs) Sin[phiobs])^2/asquare)^2
+In[17]:= CostFunction1[xego,yego,phiego,xobs,yobs,phiobs,asquare,bsquare,safetydis]// Simplify//CForm
+Out[17]//CForm=
+Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,-2)
+
+Gradient
+WITHIN_THRESHOLD
+In[18]:= (*Gradient with respect to xego*)
+gradXego=D[CostFunction[xego,yego,phiego,xobs,yobs,phiobs,asquare,bsquare,safetydis],xego];
+
+(*Gradient with respect to yego*)
+gradYego=D[CostFunction[xego,yego,phiego,xobs,yobs,phiobs,asquare,bsquare,safetydis],yego];
+BEYOND_THRESHOLD
+In[20]:= gradXego1=D[CostFunction1[xego,yego,phiego,xobs,yobs,phiobs,asquare,bsquare,safetydis],xego];
+
+(*Gradient with respect to yego*)
+gradYego1=D[CostFunction1[xego,yego,phiego,xobs,yobs,phiobs,asquare,bsquare,safetydis],yego];
+
+In[11]:=
+Hessian
+WITHIN_THRESHOLD
+In[22]:= hessianXegoXego=D[gradXego,xego];
+hessianXegoYego=D[gradXego,yego];
+hessianYegoXego=D[gradYego,xego];
+hessianYegoYego=D[gradYego,yego];
+BEYOND_THRESHOLD
+In[26]:= hessianXegoXego1=D[gradXego1,xego];
+hessianXegoYego1=D[gradXego1,yego];
+hessianYegoXego1=D[gradYego1,xego];
+hessianYegoYego1=D[gradYego1,yego];
+
+CForm
+WITHIN_THRESHOLD
+In[30]:= gradXegoCForm=CForm[Simplify[gradXego]];
+gradYegoCForm=CForm[Simplify[gradYego]];
+hessianXegoXegoCForm=CForm[Simplify[hessianXegoXego]];
+hessianXegoYegoCForm=CForm[Simplify[hessianXegoYego]];
+hessianYegoXegoCForm=CForm[Simplify[hessianYegoXego]];
+hessianYegoYegoCForm=CForm[Simplify[hessianYegoYego]];
+BEYOND_THRESHOLD
+In[36]:= gradXegoCForm1=CForm[Simplify[gradXego1]];
+gradYegoCForm1=CForm[Simplify[gradYego1]];
+hessianXegoXegoCForm1=CForm[Simplify[hessianXegoXego1]];
+hessianXegoYegoCForm1=CForm[Simplify[hessianXegoYego1]];
+hessianYegoXegoCForm1=CForm[Simplify[hessianYegoXego1]];
+hessianYegoYegoCForm1=CForm[Simplify[hessianYegoYego1]];
+WITHIN_THRESHOLD
+In[42]:= gradXegoCForm
+Out[42]//CForm=
+(-4*(bsquare*(xego - xobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(xego - xobs)*Power(Sin(phiobs),2)))/
+   (asquare*bsquare*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,3))
+In[43]:= gradYegoCForm
+Out[43]//CForm=
+(-4*(asquare*(yego - yobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(yego - yobs)*Power(Sin(phiobs),2)))/
+   (asquare*bsquare*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,3))
+In[44]:= hessianXegoXegoCForm
+Out[44]//CForm=
+(4*(6*Power(bsquare*(xego - xobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(xego - xobs)*Power(Sin(phiobs),2),2) - 
+       (bsquare*Power(Cos(phiobs),2) + asquare*Power(Sin(phiobs),2))*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,4))
+In[45]:= hessianXegoYegoCForm
+Out[45]//CForm=
+(4*(6*(-(bsquare*(xego - xobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(-xego + xobs)*Power(Sin(phiobs),2))*
+        (-(asquare*(yego - yobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(-yego + yobs)*Power(Sin(phiobs),2)) - 
+       (asquare - bsquare)*Cos(phiobs)*Sin(phiobs)*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,4))
+In[46]:= hessianYegoXegoCForm
+Out[46]//CForm=
+(4*(6*(-(bsquare*(xego - xobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(-xego + xobs)*Power(Sin(phiobs),2))*
+        (-(asquare*(yego - yobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(-yego + yobs)*Power(Sin(phiobs),2)) - 
+       (asquare - bsquare)*Cos(phiobs)*Sin(phiobs)*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,4))
+In[47]:= hessianYegoYegoCForm
+Out[47]//CForm=
+(4*(6*Power(asquare*(yego - yobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(yego - yobs)*Power(Sin(phiobs),2),2) - 
+       (asquare*Power(Cos(phiobs),2) + bsquare*Power(Sin(phiobs),2))*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,4))
+BEYOND_THRESHOLD
+In[48]:= gradXegoCForm1
+Out[48]//CForm=
+(-4*(bsquare*(xego - xobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(xego - xobs)*Power(Sin(phiobs),2)))/
+   (asquare*bsquare*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,3))
+In[49]:= gradYegoCForm1
+Out[49]//CForm=
+(-4*(asquare*(yego - yobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(yego - yobs)*Power(Sin(phiobs),2)))/
+   (asquare*bsquare*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,3))
+In[50]:= hessianXegoXegoCForm1
+Out[50]//CForm=
+(4*(6*Power(bsquare*(xego - xobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(xego - xobs)*Power(Sin(phiobs),2),2) - 
+       (bsquare*Power(Cos(phiobs),2) + asquare*Power(Sin(phiobs),2))*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,4))
+In[51]:= hessianXegoYegoCForm1
+Out[51]//CForm=
+(4*(6*(-(bsquare*(xego - xobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(-xego + xobs)*Power(Sin(phiobs),2))*
+        (-(asquare*(yego - yobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(-yego + yobs)*Power(Sin(phiobs),2)) - 
+       (asquare - bsquare)*Cos(phiobs)*Sin(phiobs)*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,4))
+In[52]:= hessianYegoXegoCForm1
+Out[52]//CForm=
+(4*(6*(-(bsquare*(xego - xobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(-xego + xobs)*Power(Sin(phiobs),2))*
+        (-(asquare*(yego - yobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(-yego + yobs)*Power(Sin(phiobs),2)) - 
+       (asquare - bsquare)*Cos(phiobs)*Sin(phiobs)*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,4))
+In[53]:= hessianYegoYegoCForm1
+Out[53]//CForm=
+(4*(6*Power(asquare*(yego - yobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(yego - yobs)*Power(Sin(phiobs),2),2) - 
+       (asquare*Power(Cos(phiobs),2) + bsquare*Power(Sin(phiobs),2))*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,4))
+
+FOV COST
+In[54]:= 
+In[55]:= fov[x_,y_,phi_, xobs_,yobs_,phiobs_]=(xobs-x)*Cos[-phi] -(yobs-y)*Sin[-phi]
+fovcostFunction[x_,y_,phi_, xobs_,yobs_,phiobs_,fovweight_] = fovweight*fov[x,y,phi, xobs,yobs,phiobs]^2
+
+Out[55]= (-x+xobs) Cos[phi]+(-y+yobs) Sin[phi]
+Out[56]= fovweight ((-x+xobs) Cos[phi]+(-y+yobs) Sin[phi])^2
+ 
+In[57]:= FovgradXego=D[fovcostFunction[xego,yego,phiego, xobs,yobs,phiobs,fovweight],xego];
+FovgradYego=D[fovcostFunction[xego,yego,phiego, xobs,yobs,phiobs,fovweight],yego];
+FovgradPhiego=D[fovcostFunction[xego,yego,phiego, xobs,yobs,phiobs,fovweight],phiego];
+FovgradXegoCForm=CForm[FovgradXego];
+FovgradYegoCForm=CForm[ FovgradYego];
+FovgradPhiegoCForm=CForm[FovgradPhiego];
+
+In[63]:= FovgradXegoCForm
+Out[63]//CForm=
+-2*fovweight*Cos(phiego)*((-xego + xobs)*Cos(phiego) + (-yego + yobs)*Sin(phiego))
+In[64]:= FovgradYegoCForm
+Out[64]//CForm=
+-2*fovweight*Sin(phiego)*((-xego + xobs)*Cos(phiego) + (-yego + yobs)*Sin(phiego))
+In[65]:= FovgradPhiegoCForm
+Out[65]//CForm=
+2*fovweight*((-yego + yobs)*Cos(phiego) - (-xego + xobs)*Sin(phiego))*((-xego + xobs)*Cos(phiego) + (-yego + yobs)*Sin(phiego))
+ 
+In[66]:= FovhessianXegoXego=D[FovgradXego,xego];
+FovhessianXegoYego=D[FovgradXego,yego];
+FovhessianXegoPhiego=D[FovgradXego,phiego];
+
+FovhessianYegoXego=D[FovgradYego,xego];
+FovhessianYegoYego=D[FovgradYego,yego];
+FovhessianYegoPhiego=D[FovgradYego,phiego];
+
+FovhessianPhiegoXego=D[FovgradPhiego,xego];
+FovhessianPhiegoYego=D[FovgradPhiego,yego];
+FovhessianPhiegoPhiego=D[FovgradPhiego,phiego];
+
+FovhessianXegoXegoCForm=CForm[Simplify[FovhessianXegoXego]];
+FovhessianXegoYegoCForm=CForm[Simplify[FovhessianXegoYego]];
+FovhessianXegoPhiegoCForm=CForm[Simplify[FovhessianXegoPhiego]];
+
+FovhessianYegoXegoCForm=CForm[Simplify[FovhessianYegoXego]];
+FovhessianYegoYegoCForm=CForm[Simplify[FovhessianYegoYego]];
+FovhessianYegoPhiegoCForm=CForm[Simplify[FovhessianYegoPhiego]];
+
+FovhessianPhiegoXegoCForm=CForm[Simplify[FovhessianPhiegoXego]];
+FovhessianPhiegoYegoCForm=CForm[Simplify[FovhessianPhiegoYego]];
+FovhessianPhiegoPhiegoCForm=CForm[Simplify[FovhessianPhiegoPhiego]];
+
+
+In[84]:= FovhessianXegoXegoCForm
+Out[84]//CForm=
+2*fovweight*Power(Cos(phiego),2)
+In[85]:= FovhessianXegoYegoCForm
+Out[85]//CForm=
+fovweight*Sin(2*phiego)
+In[86]:= FovhessianXegoPhiegoCForm
+Out[86]//CForm=
+2*fovweight*((yego - yobs)*Cos(2*phiego) + (-xego + xobs)*Sin(2*phiego))
+In[87]:= 
+
+In[88]:= FovhessianYegoXegoCForm
+Out[88]//CForm=
+fovweight*Sin(2*phiego)
+In[89]:= FovhessianYegoYegoCForm
+Out[89]//CForm=
+2*fovweight*Power(Sin(phiego),2)
+In[90]:= FovhessianYegoPhiegoCForm
+
+
+Out[90]//CForm=
+2*fovweight*((xego - xobs)*Cos(2*phiego) + (yego - yobs)*Sin(2*phiego))
+In[91]:= FovhessianPhiegoXegoCForm
+Out[91]//CForm=
+2*fovweight*((yego - yobs)*Cos(2*phiego) + (-xego + xobs)*Sin(2*phiego))
+In[92]:= FovhessianPhiegoYegoCForm
+Out[92]//CForm=
+2*fovweight*((xego - xobs)*Cos(2*phiego) + (yego - yobs)*Sin(2*phiego))
+In[93]:= FovhessianPhiegoPhiegoCForm
+Out[93]//CForm=
+2*fovweight*(Power((yego - yobs)*Cos(phiego) + (-xego + xobs)*Sin(phiego),2) - Power((xego - xobs)*Cos(phiego) + (yego - yobs)*Sin(phiego),2))

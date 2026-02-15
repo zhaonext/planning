@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -w -O3 -DNDEBUG -shared -Wl,-soname,libaltro_tvlqr.so -o libaltro_tvlqr.so CMakeFiles/altro_tvlqr.dir/tvlqr.cpp.o  -Wl,-rpath,/home/SENSETIME/wangdezhao/Downloads/urban_planning/urbanplanning/TrajOpt/build/ALTRO/fmt ../fmt/libfmt.so.9.1.0 

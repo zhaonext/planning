@@ -1,0 +1,9 @@
+{
+  "vehicle": {
+    "front_suspension": 0.8,
+    "rear_suspension": 1,
+    "wheelbase": 2,
+    "width": 1.6,
+    "height": 1.4
+  }
+}

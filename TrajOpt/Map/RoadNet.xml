@@ -1,0 +1,286 @@
+<RoadNetwork>
+    <Road id="1">
+        <Lane id="1">
+            <BezierCurve>
+                <ControlPoint x="0.0" y="0.0"/>
+                <ControlPoint x="500" y="0.0"/>
+                <ControlPoint x="1000" y="0.0"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="2">
+            <BezierCurve>
+                <ControlPoint x="0.0" y="-3.75"/>
+                <ControlPoint x="500.0" y="-3.75"/>
+                <ControlPoint x="1000.0" y="-3.75"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="3">
+            <BezierCurve>
+                <ControlPoint x="0.0" y="-7.5"/>
+                <ControlPoint x="500.0" y="-7.5"/>
+                <ControlPoint x="1000.0" y="-7.5"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="4">
+            <BezierCurve>
+                <ControlPoint x="0.0" y="-11.25"/>
+                <ControlPoint x="500.0" y="-11.25"/>
+                <ControlPoint x="1000.0" y="-11.25"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-1">
+            <BezierCurve>
+                <ControlPoint x="1000.0" y="3.75"/>
+                <ControlPoint x="500.0" y="3.75"/>
+                <ControlPoint x="0.0" y="3.75"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-2">
+            <BezierCurve>
+                <ControlPoint x="1000.0" y="7.5"/>
+                <ControlPoint x="500.0" y="7.5"/>
+                <ControlPoint x="0.0" y="7.5"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-3">
+            <BezierCurve>
+                <ControlPoint x="1000.0" y="11.25"/>
+                <ControlPoint x="500.0" y="11.25"/>
+                <ControlPoint x="0.0" y="11.25"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-4">
+            <BezierCurve>
+                <ControlPoint x="1000.0" y="15.0"/>
+                <ControlPoint x="500.0" y="15.0"/>
+                <ControlPoint x="0.0" y="15.0"/>
+            </BezierCurve>
+        </Lane>
+    </Road>
+    <Road id="2">
+        <Lane id="1">
+            <BezierCurve>
+                <ControlPoint x="1036.875" y="-1036.875"/>
+                <ControlPoint x="1036.875" y="-536.875"/>
+                <ControlPoint x="1036.875" y="-36.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="2">
+            <BezierCurve>
+                <ControlPoint x="1040.625" y="-1036.875"/>
+                <ControlPoint x="1040.625" y="-536.875"/>
+                <ControlPoint x="1040.625" y="-36.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="3">
+            <BezierCurve>
+                <ControlPoint x="1044.375" y="-1036.875"/>
+                <ControlPoint x="1044.375" y="-536.875"/>
+                <ControlPoint x="1044.375" y="-36.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="4">
+            <BezierCurve>
+                <ControlPoint x="1048.125" y="-1036.875"/>
+                <ControlPoint x="1048.125" y="-536.875"/>
+                <ControlPoint x="1048.125" y="-36.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-1">
+            <BezierCurve>
+                <ControlPoint x="1033.125" y="-36.875"/>
+                <ControlPoint x="1033.125" y="-536.875"/>
+                <ControlPoint x="1033.125" y="-1036.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-2">
+            <BezierCurve>
+                <ControlPoint x="1029.375" y="-36.875"/>
+                <ControlPoint x="1029.375" y="-536.875"/>
+                <ControlPoint x="1029.375" y="-1036.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-3">
+            <BezierCurve>
+                <ControlPoint x="1025.625" y="-36.875"/>
+                <ControlPoint x="1025.625" y="-536.875"/>
+                <ControlPoint x="1025.625" y="-1036.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-4">
+            <BezierCurve>
+                <ControlPoint x="1021.875" y="-36.875"/>
+                <ControlPoint x="1021.875" y="-536.875"/>
+                <ControlPoint x="1021.875" y="-1036.875"/>
+            </BezierCurve>
+        </Lane>
+    </Road>
+    <Road id="3">
+
+        <Lane id="1">
+            <BezierCurve>
+                <ControlPoint x="1073.75" y="0"/>
+                <ControlPoint x="1573.75" y="0"/>
+                <ControlPoint x="2073.75" y="0"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="2">
+            <BezierCurve>
+                <ControlPoint x="1073.75" y="-3.75"/>
+                <ControlPoint x="1573.75" y="-3.75"/>
+                <ControlPoint x="2073.75" y="-3.75"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="3">
+            <BezierCurve>
+                <ControlPoint x="1073.75" y="-7.5"/>
+                <ControlPoint x="1573.75" y="-7.5"/>
+                <ControlPoint x="2073.75" y="-7.5"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="4">
+            <BezierCurve>
+                <ControlPoint x="1073.75" y="-11.25"/>
+                <ControlPoint x="1573.75" y="-11.25"/>
+                <ControlPoint x="2073.75" y="-11.25"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-1">
+            <BezierCurve>
+                <ControlPoint x="2073.75" y="3.75"/>
+                <ControlPoint x="1573.75" y="3.75"/>
+                <ControlPoint x="1073.75" y="3.75"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-2">
+            <BezierCurve>
+                <ControlPoint x="2073.75" y="7.5"/>
+                <ControlPoint x="1573.75" y="7.5"/>
+                <ControlPoint x="1073.75" y="7.5"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-3">
+            <BezierCurve>
+                <ControlPoint x="2073.75" y="11.25"/>
+                <ControlPoint x="1573.75" y="11.25"/>
+                <ControlPoint x="1073.75" y="11.25"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-4">
+            <BezierCurve>
+                <ControlPoint x="2073.75" y="15.0"/>
+                <ControlPoint x="1573.75" y="15.0"/>
+                <ControlPoint x="1073.75" y="15.0"/>
+            </BezierCurve>
+        </Lane>
+    </Road>
+    <Road id="4">
+
+        <Lane id="1">
+            <BezierCurve>
+                <ControlPoint x="1036.875" y="36.875"/>
+                <ControlPoint x="1036.875" y="536.875"/>
+                <ControlPoint x="1036.875" y="1036.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="2">
+            <BezierCurve>
+                <ControlPoint x="1040.625" y="36.875"/>
+                <ControlPoint x="1040.625" y="536.875"/>
+                <ControlPoint x="1040.625" y="1036.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="3">
+            <BezierCurve>
+                <ControlPoint x="1044.375" y="36.875"/>
+                <ControlPoint x="1044.375" y="536.875"/>
+                <ControlPoint x="1044.375" y="1036.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="4">
+            <BezierCurve>
+                <ControlPoint x="1048.125" y="36.875"/>
+                <ControlPoint x="1048.125" y="536.875"/>
+                <ControlPoint x="1048.125" y="1036.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-1">
+            <BezierCurve>
+                <ControlPoint x="1033.125" y="1036.875"/>
+                <ControlPoint x="1033.125" y="536.875"/>
+                <ControlPoint x="1033.125" y="36.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-2">
+            <BezierCurve>
+                <ControlPoint x="1029.375" y="1036.875"/>
+                <ControlPoint x="1029.375" y="536.875"/>
+                <ControlPoint x="1029.375" y="36.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-3">
+            <BezierCurve>
+                <ControlPoint x="1025.625" y="1036.875"/>
+                <ControlPoint x="1025.625" y="536.875"/>
+                <ControlPoint x="1025.625" y="36.875"/>
+            </BezierCurve>
+        </Lane>
+        <Lane id="-4">
+            <BezierCurve>
+                <ControlPoint x="1021.875" y="1036.875"/>
+                <ControlPoint x="1021.875" y="536.875"/>
+                <ControlPoint x="1021.875" y="36.875"/>
+            </BezierCurve>
+        </Lane>
+    </Road>
+
+    <ZebraCrossings>
+        <ZebraCrossing id="1" x_start="998.125" y_start="-13.125" x_end="998.125" y_end="16.875"/>
+        <ZebraCrossing id="2" x_start="1050.0" y_start="-38.75" x_end="1020.0" y_end="-38.75"/>
+        <ZebraCrossing id="3" x_start="1075.625" y_start="-13.125" x_end="1075.625" y_end="16.875"/>
+        <ZebraCrossing id="4" x_start="1050.0" y_start="38.75" x_end="1020.0" y_end="38.75"/>
+    </ZebraCrossings>
+
+    <TrafficLights>
+        <TrafficLight id="3" x="1073" y="-20" z="6" orientation="VERTICAL"/>
+    </TrafficLights>
+
+    <Connections>
+        <Connection name="turn_right">
+            <From road="1" lane="4"/>
+            <To road="2" lane="-4"/>
+            <ControlPoints>
+                <ControlPoint x="1000.0" y="-11.2"/>
+                <ControlPoint x="1021.875" y="-11.25"/>
+                <ControlPoint x="1021.875" y="-36.875"/>
+            </ControlPoints>
+        </Connection>
+        <Connection name="go_straight0">
+            <From road="1" lane="3"/>
+            <To road="3" lane="3"/>
+            <ControlPoints>
+                <ControlPoint x="1000.0" y="-7.5"/>
+                <ControlPoint x="1036.875" y="-7.5"/>
+                <ControlPoint x="1073.75" y="-7.5"/>
+            </ControlPoints>
+        </Connection>
+        <Connection name="go_straight1">
+            <From road="1" lane="2"/>
+            <To road="3" lane="2"/>
+            <ControlPoints>
+                <ControlPoint x="1000.0" y="-3.75"/>
+                <ControlPoint x="1036.875" y="-3.75"/>
+                <ControlPoint x="1073.75" y="-3.75"/>
+            </ControlPoints>
+        </Connection>
+        <Connection name="turn_left">
+            <From road="1" lane="1"/>
+            <To road="4" lane="1"/>
+            <ControlPoints>
+                <ControlPoint x="1000.0" y="0.0"/>
+                <ControlPoint x="1036.875" y="5"/>
+                <ControlPoint x="1036.875" y="36.875"/>
+            </ControlPoints>
+        </Connection>
+    </Connections>
+</RoadNetwork>

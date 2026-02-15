@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -w -O3 -DNDEBUG -shared -Wl,-soname,libfmt.so.9 -o libfmt.so.9.1.0 CMakeFiles/fmt.dir/src/format.cc.o CMakeFiles/fmt.dir/src/os.cc.o 

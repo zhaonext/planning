@@ -1,0 +1,2 @@
+/usr/bin/ar qc libutils.a CMakeFiles/utils.dir/assert.cpp.o CMakeFiles/utils.dir/derivative_checker.cpp.o CMakeFiles/utils.dir/formatting.cpp.o
+/usr/bin/ranlib libutils.a

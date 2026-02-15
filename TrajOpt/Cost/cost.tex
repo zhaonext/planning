@@ -1,0 +1,615 @@
+%% AMS-LaTeX Created with the Wolfram Language : www.wolfram.com
+
+\documentclass{article}
+\usepackage{amsmath, amssymb, graphics, setspace}
+
+\newcommand{\mathsym}[1]{{}}
+\newcommand{\unicode}[1]{{}}
+
+\newcounter{mathematicapage}
+\begin{document}
+
+\title{}
+\author{CostFunction}
+\date{}
+\maketitle
+
+
+
+\begin{doublespace}
+\noindent\(\pmb{\text{(*}\text{Define} \text{position} \text{error} }\\
+\pmb{\text{functions}\text{*)}}\\
+\pmb{\text{PositionError}[\text{xego$\_$},\text{yego$\_$},\text{xobs$\_$},}\\
+\pmb{\text{yobs$\_$}]\text{:=}\{\text{xobs}-\text{xego},\text{yobs}-\text{yego}\}}\\
+\pmb{}\\
+\pmb{\text{(*}\text{Define} \text{rotation} \text{matrix} \text{based} }\\
+\pmb{\text{on} \text{obstacle} \text{heading} \text{angle}\text{*)}}\\
+\pmb{\text{rotationMatrixObsTheta}[\text{phiobs$\_$}]\text{:=}}\\
+\pmb{\{\{\text{Cos}[\text{phiobs}],-\text{Sin}[\text{phiobs}]\},}\\
+\pmb{\{\text{Sin}[\text{phiobs}],\text{Cos}[\text{phiobs}]\}\}}\\
+\pmb{\text{(*}\text{Compute} \text{error} \text{vector} \text{in} }\\
+\pmb{\text{obstacle}'s \text{coordinate} \text{system}\text{*)}}\\
+\pmb{\text{ErrorVectorInObsCoords}[\text{xego$\_$},}\\
+\pmb{\text{yego$\_$},\text{phiego$\_$},\text{xobs$\_$},\text{yobs$\_$},}\\
+\pmb{\text{phiobs$\_$}]\text{:=}}\\
+\pmb{\text{rotationMatrixObsTheta}[\text{phiobs}].}\\
+\pmb{\text{PositionError}[\text{xego},\text{yego},\text{xobs},}\\
+\pmb{\text{yobs}]}\\
+\pmb{\text{errVector}\text{:=}}\\
+\pmb{\text{ErrorVectorInObsCoords}[\text{xego},}\\
+\pmb{\text{yego},\text{phiego},\text{xobs},\text{yobs},\text{phiobs}]}\\
+\pmb{}\\
+\pmb{\text{(*}\text{Define} \text{distance} \text{function} \text{using} }\\
+\pmb{\text{ellipsoid}\text{*)}}\\
+\pmb{\text{distanceFunction}[\text{asquare$\_$},}\\
+\pmb{\text{bsquare$\_$}]\text{:=}}\\
+\pmb{\text{With}[}\\
+\pmb{\{p=\{\{1/\text{asquare},0\},}\\
+\pmb{\{0,1/\text{bsquare}\}\}\},}\\
+\pmb{\text{Transpose}[\text{errVector}].p.}\\
+\pmb{\text{errVector}]}\\
+\pmb{\text{(*}\text{distanceFunction}[\text{asquare$\_$},}\\
+\pmb{\text{bsquare$\_$}]\text{:=}}\\
+\pmb{\text{Sqrt}[}\\
+\pmb{(\text{Transpose}[\text{errVector}].}\\
+\pmb{\text{errVector})]\text{*)}}\\
+\pmb{\text{distanceFunction}[\text{asquare},\text{bsquare}]}\\
+\pmb{\text{distanceFunction}[\text{asquare},}\\
+\pmb{\text{bsquare}]\text{//}\text{CForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\frac{((-\text{yego}+\text{yobs}) \text{Cos}[\text{phiobs}]+(-\text{xego}+\text{xobs}) \text{Sin}[\text{phiobs}])^2}{\text{bsquare}}+\frac{((-\text{xego}+\text{xobs})
+\text{Cos}[\text{phiobs}]-(-\text{yego}+\text{yobs}) \text{Sin}[\text{phiobs}])^2}{\text{asquare}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((-xego + xobs)*Cos(phiobs) - (-yego + yobs)*Sin(phiobs),2)/asquare}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{(*}\text{cost}[\text{asquare$\_$},\text{bsquare$\_$},}\\
+\pmb{\text{safetydis$\_$}]\text{:=} }\\
+\pmb{-1/(2*\text{safetydis}{}^{\wedge}3)*}\\
+\pmb{\text{distanceFunction}[\text{asquare},}\\
+\pmb{\text{bsquare}]{}^{\wedge}4+}\\
+\pmb{\text{distanceFunction}[\text{asquare},}\\
+\pmb{\text{bsquare}]{}^{\wedge}3*1/\text{safetydis}{}^{\wedge}2\text{*)}}\\
+\pmb{\text{cost}[\text{asquare$\_$},\text{bsquare$\_$},}\\
+\pmb{\text{safetydis$\_$}]\text{:=} }\\
+\pmb{1/\text{distanceFunction}[\text{asquare},}\\
+\pmb{\text{bsquare}]}\\
+\pmb{\text{CostFunction}[\text{xego$\_$},\text{yego$\_$},\text{phiego$\_$},}\\
+\pmb{\text{xobs$\_$},\text{yobs$\_$},\text{phiobs$\_$},\text{asquare$\_$},}\\
+\pmb{\text{bsquare$\_$},\text{safetydis$\_$}]\text{:=}}\\
+\pmb{\text{cost}[\text{asquare},\text{bsquare},\text{safetydis}]*}\\
+\pmb{\text{cost}[\text{asquare},\text{bsquare},\text{safetydis}]}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{cost}[\text{asquare},\text{bsquare},\text{safetydis}]}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\frac{1}{\frac{((-\text{yego}+\text{yobs}) \text{Cos}[\text{phiobs}]+(-\text{xego}+\text{xobs}) \text{Sin}[\text{phiobs}])^2}{\text{bsquare}}+\frac{((-\text{xego}+\text{xobs})
+\text{Cos}[\text{phiobs}]-(-\text{yego}+\text{yobs}) \text{Sin}[\text{phiobs}])^2}{\text{asquare}}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\pmb{\text{CostFunction}[\text{xego},\text{yego},\text{phiego},}}\\
+\pmb{\pmb{\text{xobs},\text{yobs},\text{phiobs},\text{asquare},}}\\
+\pmb{\pmb{\text{bsquare},\text{safetydis}]}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\frac{1}{\left(\frac{((-\text{yego}+\text{yobs}) \text{Cos}[\text{phiobs}]+(-\text{xego}+\text{xobs}) \text{Sin}[\text{phiobs}])^2}{\text{bsquare}}+\frac{((-\text{xego}+\text{xobs})
+\text{Cos}[\text{phiobs}]-(-\text{yego}+\text{yobs}) \text{Sin}[\text{phiobs}])^2}{\text{asquare}}\right)^2}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{CostFunction}[\text{xego},\text{yego},\text{phiego},}\\
+\pmb{\text{xobs},\text{yobs},\text{phiobs},\text{asquare},}\\
+\pmb{\text{bsquare},\text{safetydis}]\text{//} }\\
+\pmb{\text{Simplify}\text{//}\text{CForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,-2)}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{(*}*\text{cost1}[\text{asquare$\_$},\text{bsquare$\_$},}\\
+\pmb{\text{safetydis$\_$}]\text{:=} }\\
+\pmb{\text{distanceFunction}[\text{asquare},\text{bsquare}]-}\\
+\pmb{\text{safetydis}/2\text{*)}}\\
+\pmb{\text{cost1}[\text{asquare$\_$},\text{bsquare$\_$},}\\
+\pmb{\text{safetydis$\_$}]\text{:=} }\\
+\pmb{1/\text{distanceFunction}[\text{asquare},}\\
+\pmb{\text{bsquare}]}\\
+\pmb{\text{CostFunction1}[\text{xego$\_$},\text{yego$\_$},}\\
+\pmb{\text{phiego$\_$},\text{xobs$\_$},\text{yobs$\_$},\text{phiobs$\_$},}\\
+\pmb{\text{asquare$\_$},\text{bsquare$\_$},\text{safetydis$\_$}]\text{:=}}\\
+\pmb{\text{cost1}[\text{asquare},\text{bsquare},}\\
+\pmb{\text{safetydis}]*}\\
+\pmb{\text{cost1}[\text{asquare},\text{bsquare},\text{safetydis}]}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{cost1}[\text{asquare},\text{bsquare},\text{safetydis}]}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\frac{1}{\frac{((-\text{yego}+\text{yobs}) \text{Cos}[\text{phiobs}]+(-\text{xego}+\text{xobs}) \text{Sin}[\text{phiobs}])^2}{\text{bsquare}}+\frac{((-\text{xego}+\text{xobs})
+\text{Cos}[\text{phiobs}]-(-\text{yego}+\text{yobs}) \text{Sin}[\text{phiobs}])^2}{\text{asquare}}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{CostFunction1}[\text{xego},\text{yego},\text{phiego},}\\
+\pmb{\text{xobs},\text{yobs},\text{phiobs},\text{asquare},}\\
+\pmb{\text{bsquare},\text{safetydis}]}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\frac{1}{\left(\frac{((-\text{yego}+\text{yobs}) \text{Cos}[\text{phiobs}]+(-\text{xego}+\text{xobs}) \text{Sin}[\text{phiobs}])^2}{\text{bsquare}}+\frac{((-\text{xego}+\text{xobs})
+\text{Cos}[\text{phiobs}]-(-\text{yego}+\text{yobs}) \text{Sin}[\text{phiobs}])^2}{\text{asquare}}\right)^2}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{CostFunction1}[\text{xego},\text{yego},\text{phiego},}\\
+\pmb{\text{xobs},\text{yobs},\text{phiobs},\text{asquare},}\\
+\pmb{\text{bsquare},\text{safetydis}]\text{//} }\\
+\pmb{\text{Simplify}\text{//}\text{CForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,-2)}\)
+\end{doublespace}
+
+
+
+\begin{doublespace}
+\noindent\(\pmb{\text{(*Gradient with respect to xego*)}}\\
+\pmb{\text{gradXego}=}\\
+\pmb{D[\text{CostFunction}[\text{xego},\text{yego},}\\
+\pmb{\text{phiego},\text{xobs},\text{yobs},\text{phiobs},}\\
+\pmb{\text{asquare},\text{bsquare},\text{safetydis}],}\\
+\pmb{\text{xego}];}\\
+\pmb{}\\
+\pmb{\text{(*Gradient with respect to yego*)}}\\
+\pmb{\text{gradYego}=}\\
+\pmb{D[\text{CostFunction}[\text{xego},\text{yego},}\\
+\pmb{\text{phiego},\text{xobs},\text{yobs},\text{phiobs},}\\
+\pmb{\text{asquare},\text{bsquare},\text{safetydis}],}\\
+\pmb{\text{yego}];}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{gradXego1}=}\\
+\pmb{D[\text{CostFunction1}[\text{xego},\text{yego},}\\
+\pmb{\text{phiego},\text{xobs},\text{yobs},\text{phiobs},}\\
+\pmb{\text{asquare},\text{bsquare},\text{safetydis}],}\\
+\pmb{\text{xego}];}\\
+\pmb{}\\
+\pmb{\text{(*Gradient with respect to yego*)}}\\
+\pmb{\text{gradYego1}=}\\
+\pmb{D[\text{CostFunction1}[\text{xego},\text{yego},}\\
+\pmb{\text{phiego},\text{xobs},\text{yobs},\text{phiobs},}\\
+\pmb{\text{asquare},\text{bsquare},\text{safetydis}],}\\
+\pmb{\text{yego}];}\)
+\end{doublespace}
+
+
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianXegoXego}=D[\text{gradXego},\text{xego}];}\\
+\pmb{\text{hessianXegoYego}=D[\text{gradXego},\text{yego}];}\\
+\pmb{\text{hessianYegoXego}=D[\text{gradYego},\text{xego}];}\\
+\pmb{\text{hessianYegoYego}=D[\text{gradYego},\text{yego}];}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianXegoXego1}=}\\
+\pmb{D[\text{gradXego1},\text{xego}];}\\
+\pmb{\text{hessianXegoYego1}=}\\
+\pmb{D[\text{gradXego1},\text{yego}];}\\
+\pmb{\text{hessianYegoXego1}=}\\
+\pmb{D[\text{gradYego1},\text{xego}];}\\
+\pmb{\text{hessianYegoYego1}=}\\
+\pmb{D[\text{gradYego1},\text{yego}];}\)
+\end{doublespace}
+
+
+
+\begin{doublespace}
+\noindent\(\pmb{\text{gradXegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[\text{gradXego}]];}\\
+\pmb{\text{gradYegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[\text{gradYego}]];}\\
+\pmb{\text{hessianXegoXegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{hessianXegoXego}]];}\\
+\pmb{\text{hessianXegoYegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{hessianXegoYego}]];}\\
+\pmb{\text{hessianYegoXegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{hessianYegoXego}]];}\\
+\pmb{\text{hessianYegoYegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[\text{hessianYegoYego}]];}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{gradXegoCForm1}=}\\
+\pmb{\text{CForm}[\text{Simplify}[\text{gradXego1}]];}\\
+\pmb{\text{gradYegoCForm1}=}\\
+\pmb{\text{CForm}[\text{Simplify}[\text{gradYego1}]];}\\
+\pmb{\text{hessianXegoXegoCForm1}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{hessianXegoXego1}]];}\\
+\pmb{\text{hessianXegoYegoCForm1}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{hessianXegoYego1}]];}\\
+\pmb{\text{hessianYegoXegoCForm1}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{hessianYegoXego1}]];}\\
+\pmb{\text{hessianYegoYegoCForm1}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{hessianYegoYego1}]];}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{gradXegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(-4*(bsquare*(xego - xobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(xego - xobs)*Power(Sin(phiobs),2)))/
+   (asquare*bsquare*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,3))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{gradYegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(-4*(asquare*(yego - yobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(yego - yobs)*Power(Sin(phiobs),2)))/
+   (asquare*bsquare*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,3))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianXegoXegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(4*(6*Power(bsquare*(xego - xobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(xego
+- xobs)*Power(Sin(phiobs),2),2) - 
+       (bsquare*Power(Cos(phiobs),2) + asquare*Power(Sin(phiobs),2))*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) +
+bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs)
++ (-yego + yobs)*Sin(phiobs),2)/asquare,4))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianXegoYegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(4*(6*(-(bsquare*(xego - xobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(-xego
++ xobs)*Power(Sin(phiobs),2))*
+        (-(asquare*(yego - yobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(-yego + yobs)*Power(Sin(phiobs),2))
+- 
+       (asquare - bsquare)*Cos(phiobs)*Sin(phiobs)*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego
+- xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs)
++ (-yego + yobs)*Sin(phiobs),2)/asquare,4))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianYegoXegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(4*(6*(-(bsquare*(xego - xobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(-xego
++ xobs)*Power(Sin(phiobs),2))*
+        (-(asquare*(yego - yobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(-yego + yobs)*Power(Sin(phiobs),2))
+- 
+       (asquare - bsquare)*Cos(phiobs)*Sin(phiobs)*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego
+- xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs)
++ (-yego + yobs)*Sin(phiobs),2)/asquare,4))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianYegoYegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(4*(6*Power(asquare*(yego - yobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(yego
+- yobs)*Power(Sin(phiobs),2),2) - 
+       (asquare*Power(Cos(phiobs),2) + bsquare*Power(Sin(phiobs),2))*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) +
+bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs)
++ (-yego + yobs)*Sin(phiobs),2)/asquare,4))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{gradXegoCForm1}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(-4*(bsquare*(xego - xobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(xego - xobs)*Power(Sin(phiobs),2)))/
+   (asquare*bsquare*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,3))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{gradYegoCForm1}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(-4*(asquare*(yego - yobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(yego - yobs)*Power(Sin(phiobs),2)))/
+   (asquare*bsquare*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2)/asquare,3))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianXegoXegoCForm1}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(4*(6*Power(bsquare*(xego - xobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(xego
+- xobs)*Power(Sin(phiobs),2),2) - 
+       (bsquare*Power(Cos(phiobs),2) + asquare*Power(Sin(phiobs),2))*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) +
+bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs)
++ (-yego + yobs)*Sin(phiobs),2)/asquare,4))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianXegoYegoCForm1}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(4*(6*(-(bsquare*(xego - xobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(-xego
++ xobs)*Power(Sin(phiobs),2))*
+        (-(asquare*(yego - yobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(-yego + yobs)*Power(Sin(phiobs),2))
+- 
+       (asquare - bsquare)*Cos(phiobs)*Sin(phiobs)*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego
+- xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs)
++ (-yego + yobs)*Sin(phiobs),2)/asquare,4))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianYegoXegoCForm1}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(4*(6*(-(bsquare*(xego - xobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(yego - yobs)*Cos(phiobs)*Sin(phiobs) + asquare*(-xego
++ xobs)*Power(Sin(phiobs),2))*
+        (-(asquare*(yego - yobs)*Power(Cos(phiobs),2)) - (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(-yego + yobs)*Power(Sin(phiobs),2))
+- 
+       (asquare - bsquare)*Cos(phiobs)*Sin(phiobs)*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) + bsquare*Power((xego
+- xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs)
++ (-yego + yobs)*Sin(phiobs),2)/asquare,4))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{hessianYegoYegoCForm1}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{(4*(6*Power(asquare*(yego - yobs)*Power(Cos(phiobs),2) + (asquare - bsquare)*(xego - xobs)*Cos(phiobs)*Sin(phiobs) + bsquare*(yego
+- yobs)*Power(Sin(phiobs),2),2) - 
+       (asquare*Power(Cos(phiobs),2) + bsquare*Power(Sin(phiobs),2))*(asquare*Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2) +
+bsquare*Power((xego - xobs)*Cos(phiobs) + (-yego + yobs)*Sin(phiobs),2))))/
+   (Power(asquare,2)*Power(bsquare,2)*Power(Power((-yego + yobs)*Cos(phiobs) + (-xego + xobs)*Sin(phiobs),2)/bsquare + Power((xego - xobs)*Cos(phiobs)
++ (-yego + yobs)*Sin(phiobs),2)/asquare,4))}\)
+\end{doublespace}
+
+
+
+\begin{doublespace}
+\noindent\(\pmb{\text{}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{fov}[\text{x$\_$},\text{y$\_$},\text{phi$\_$}, \text{xobs$\_$},\text{yobs$\_$},}\\
+\pmb{\text{phiobs$\_$}]=}\\
+\pmb{(\text{xobs}-x)*\text{Cos}[-\text{phi}] -}\\
+\pmb{(\text{yobs}-y)*\text{Sin}[-\text{phi}]}\\
+\pmb{\text{fovcostFunction}[\text{x$\_$},\text{y$\_$},\text{phi$\_$}, }\\
+\pmb{\text{xobs$\_$},\text{yobs$\_$},\text{phiobs$\_$},}\\
+\pmb{\text{fovweight$\_$}] = }\\
+\pmb{\text{fovweight}*}\\
+\pmb{\text{fov}[x,y,\text{phi}, \text{xobs},\text{yobs},}\\
+\pmb{\text{phiobs}]{}^{\wedge}2}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\((-x+\text{xobs}) \text{Cos}[\text{phi}]+(-y+\text{yobs}) \text{Sin}[\text{phi}]\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{fovweight} ((-x+\text{xobs}) \text{Cos}[\text{phi}]+(-y+\text{yobs}) \text{Sin}[\text{phi}])^2\)
+\end{doublespace}
+
+ 
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovgradXego}=}\\
+\pmb{D[\text{fovcostFunction}[\text{xego},\text{yego},}\\
+\pmb{\text{phiego}, \text{xobs},\text{yobs},\text{phiobs},}\\
+\pmb{\text{fovweight}],\text{xego}];}\\
+\pmb{\text{FovgradYego}=}\\
+\pmb{D[\text{fovcostFunction}[\text{xego},\text{yego},}\\
+\pmb{\text{phiego}, \text{xobs},\text{yobs},\text{phiobs},}\\
+\pmb{\text{fovweight}],\text{yego}];}\\
+\pmb{\text{FovgradPhiego}=}\\
+\pmb{D[\text{fovcostFunction}[\text{xego},\text{yego},}\\
+\pmb{\text{phiego}, \text{xobs},\text{yobs},\text{phiobs},}\\
+\pmb{\text{fovweight}],\text{phiego}];}\\
+\pmb{\text{FovgradXegoCForm}=}\\
+\pmb{\text{CForm}[\text{FovgradXego}];}\\
+\pmb{\text{FovgradYegoCForm}=}\\
+\pmb{\text{CForm}[ \text{FovgradYego}];}\\
+\pmb{\text{FovgradPhiegoCForm}=}\\
+\pmb{\text{CForm}[\text{FovgradPhiego}];}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovgradXegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{-2*fovweight*Cos(phiego)*((-xego + xobs)*Cos(phiego) + (-yego + yobs)*Sin(phiego))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovgradYegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{-2*fovweight*Sin(phiego)*((-xego + xobs)*Cos(phiego) + (-yego + yobs)*Sin(phiego))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovgradPhiegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{2*fovweight*((-yego + yobs)*Cos(phiego) - (-xego + xobs)*Sin(phiego))*((-xego + xobs)*Cos(phiego) + (-yego + yobs)*Sin(phiego))}\)
+\end{doublespace}
+
+ 
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianXegoXego}=}\\
+\pmb{D[\text{FovgradXego},\text{xego}];}\\
+\pmb{\text{FovhessianXegoYego}=}\\
+\pmb{D[\text{FovgradXego},\text{yego}];}\\
+\pmb{\text{FovhessianXegoPhiego}=}\\
+\pmb{D[\text{FovgradXego},\text{phiego}];}\\
+\pmb{}\\
+\pmb{\text{FovhessianYegoXego}=}\\
+\pmb{D[\text{FovgradYego},\text{xego}];}\\
+\pmb{\text{FovhessianYegoYego}=}\\
+\pmb{D[\text{FovgradYego},\text{yego}];}\\
+\pmb{\text{FovhessianYegoPhiego}=}\\
+\pmb{D[\text{FovgradYego},\text{phiego}];}\\
+\pmb{}\\
+\pmb{\text{FovhessianPhiegoXego}=}\\
+\pmb{D[\text{FovgradPhiego},\text{xego}];}\\
+\pmb{\text{FovhessianPhiegoYego}=}\\
+\pmb{D[\text{FovgradPhiego},\text{yego}];}\\
+\pmb{\text{FovhessianPhiegoPhiego}=}\\
+\pmb{D[\text{FovgradPhiego},\text{phiego}];}\\
+\pmb{}\\
+\pmb{\text{FovhessianXegoXegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{FovhessianXegoXego}]];}\\
+\pmb{\text{FovhessianXegoYegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{FovhessianXegoYego}]];}\\
+\pmb{\text{FovhessianXegoPhiegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{FovhessianXegoPhiego}]];}\\
+\pmb{}\\
+\pmb{\text{FovhessianYegoXegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{FovhessianYegoXego}]];}\\
+\pmb{\text{FovhessianYegoYegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{FovhessianYegoYego}]];}\\
+\pmb{\text{FovhessianYegoPhiegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{FovhessianYegoPhiego}]];}\\
+\pmb{}\\
+\pmb{\text{FovhessianPhiegoXegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{FovhessianPhiegoXego}]];}\\
+\pmb{\text{FovhessianPhiegoYegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{FovhessianPhiegoYego}]];}\\
+\pmb{\text{FovhessianPhiegoPhiegoCForm}=}\\
+\pmb{\text{CForm}[\text{Simplify}[}\\
+\pmb{\text{FovhessianPhiegoPhiego}]];}\\
+\pmb{}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianXegoXegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{2*fovweight*Power(Cos(phiego),2)}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianXegoYegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{fovweight*Sin(2*phiego)}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianXegoPhiegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{2*fovweight*((yego - yobs)*Cos(2*phiego) + (-xego + xobs)*Sin(2*phiego))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianYegoXegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{fovweight*Sin(2*phiego)}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianYegoYegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{2*fovweight*Power(Sin(phiego),2)}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianYegoPhiegoCForm}}\\
+\pmb{}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{2*fovweight*((xego - xobs)*Cos(2*phiego) + (yego - yobs)*Sin(2*phiego))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianPhiegoXegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{2*fovweight*((yego - yobs)*Cos(2*phiego) + (-xego + xobs)*Sin(2*phiego))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianPhiegoYegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{2*fovweight*((xego - xobs)*Cos(2*phiego) + (yego - yobs)*Sin(2*phiego))}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{FovhessianPhiegoPhiegoCForm}}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\text{2*fovweight*(Power((yego - yobs)*Cos(phiego) + (-xego + xobs)*Sin(phiego),2) - Power((xego - xobs)*Cos(phiego) + (yego - yobs)*Sin(phiego),2))}\)
+\end{doublespace}
+
+\end{document}

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libaugmented_lagrangian.a CMakeFiles/augmented_lagrangian.dir/al_cost.cpp.o CMakeFiles/augmented_lagrangian.dir/al_problem.cpp.o CMakeFiles/augmented_lagrangian.dir/al_solver.cpp.o
+/usr/bin/ranlib libaugmented_lagrangian.a
