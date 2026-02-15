@@ -17,19 +17,8 @@ cmake --version
 
 ### 2.2 编译步骤
 
-进入`TrajOpt`目录并建立一个`build`文件夹：
+进入`TrajOpt`目录并运行 build.sh 脚本：
 
-```bash
-cd urbanplanning/TrajOpt
-mkdir build && cd build
-```
-
-接下来，运行`cmake`和`make`来编译项目：
-
-```bash
-cmake ..
-make -j6
-```
 
 ## 3. 运行代码
 

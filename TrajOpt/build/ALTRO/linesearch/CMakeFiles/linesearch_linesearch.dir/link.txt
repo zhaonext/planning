@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC  -w -O3 -DNDEBUG -shared -Wl,-soname,liblinesearch_linesearch.so -o liblinesearch_linesearch.so CMakeFiles/linesearch_linesearch.dir/linesearch.cpp.o CMakeFiles/linesearch_linesearch.dir/cubicspline.c.o 

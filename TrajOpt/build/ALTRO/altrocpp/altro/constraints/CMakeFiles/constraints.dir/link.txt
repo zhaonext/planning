@@ -1,2 +1,0 @@
-/usr/bin/ar qc libconstraints.a CMakeFiles/constraints.dir/constraint.cpp.o CMakeFiles/constraints.dir/constraint_values.cpp.o
-/usr/bin/ranlib libconstraints.a

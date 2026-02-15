@@ -1,2 +1,0 @@
-/usr/bin/ar qc libproblem.a CMakeFiles/problem.dir/costfunction.cpp.o CMakeFiles/problem.dir/discretized_model.cpp.o CMakeFiles/problem.dir/dynamics.cpp.o CMakeFiles/problem.dir/integration.cpp.o CMakeFiles/problem.dir/problem.cpp.o
-/usr/bin/ranlib libproblem.a

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libilqr.a CMakeFiles/ilqr.dir/cost_expansion.cpp.o CMakeFiles/ilqr.dir/dynamics_expansion.cpp.o CMakeFiles/ilqr.dir/knot_point_function_type.cpp.o CMakeFiles/ilqr.dir/ilqr.cpp.o
-/usr/bin/ranlib libilqr.a

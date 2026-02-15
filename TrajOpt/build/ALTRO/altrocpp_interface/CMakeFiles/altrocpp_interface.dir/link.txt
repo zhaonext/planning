@@ -1,2 +1,0 @@
-/usr/bin/ar qc libaltrocpp_interface.a CMakeFiles/altrocpp_interface.dir/altrocpp_interface.cpp.o
-/usr/bin/ranlib libaltrocpp_interface.a
